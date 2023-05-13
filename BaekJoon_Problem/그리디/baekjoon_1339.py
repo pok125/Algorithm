@@ -1,28 +1,26 @@
-# 수정 필요
 n = int(input())
 l = [input() for _ in range(n)]
-max_length = len(max(l, key=len))
 
-l = [i.zfill(max_length) for i in l]
-l = list(map(list, l))
-
-char_value_dic = {}
-cur_char = ''
-count = 9
-index = 0
-for i in range(max_length):
-    for j in range(len(l)):
-        cur_char = l[j][i]
-        if cur_char == '0':
-            continue
-
-        if cur_char not in char_value_dic:
-            char_value_dic[cur_char] = str(count)
-            l[j][i] = str(count)
-            count -= 1
+w_dic = {}
+for i in l:
+    for j in range(len(i)):
+        if i[j] not in w_dic:
+            w_dic[i[j]] = 10 ** (len(i) - j - 1)
         else:
-            l[j][i] = char_value_dic[cur_char]
+            w_dic[i[j]] += 10 ** (len(i) - j - 1)
 
-result_list = [int(str.join('', i)) for i in l]
-result = sum(result_list)
-print(result)
+ll = sorted(w_dic, key=w_dic.get, reverse=True)
+count = 9
+for i in ll:
+    w_dic[i[0]] = str(count)
+    count -= 1
+
+result_list = []
+s = ''
+for i in l:
+    s = ''
+    for j in i:
+        s += w_dic[j]
+    result_list.append(s)
+
+print(sum(map(int, result_list)))
