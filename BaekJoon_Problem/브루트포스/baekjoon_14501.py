@@ -16,17 +16,20 @@ def solution(index, price):
 
 # dp 풀이
 def dp_solution(day):
-    l = [0] * (day + day_list[day - 1] + 1)
+    l = [0] * (day + 1)
 
     required_days =0
     max_price = 0
     for i in range(day - 1, -1, -1):
         required_days = day_list[i]
-        max_price = l[required_days + i]
+        max_price = l[i + 1]
 
         if required_days + i <= day:
-            max_price = max(max_price, max_price + price_list[i])
+            # 이전 최대값과 내 현재 값 + 소요되는 시간 후의 값
+            max_price = max(max_price, price_list[i] + l[required_days + i])
 
         l[i] = max_price
     
-    return l[0]
+    return l
+
+print(dp_solution(7))
