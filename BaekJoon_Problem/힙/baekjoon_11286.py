@@ -9,8 +9,8 @@ answer = []
 temp = 0
 for i in nums:
     if i == 0:
-        temp = heapq.heappop(l) if l else 0
-        answer.append(temp[1])
+        temp = heapq.heappop(l)[1] if l else 0
+        answer.append(temp)
     else:
         heapq.heappush(l, (abs(i), i))
 
