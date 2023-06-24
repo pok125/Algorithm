@@ -16,24 +16,13 @@ def bfs(start_node):
                 
             
 def dfs(start_node):
+    visited[start_node] = 1
     ans_dfs.append(start_node)
-    visited[start_node]
 
-    for i in graph[start_node]:
-        if not visited[i]:
-            dfs(i)
-    # stack = []
-    # stack.append(start_node)
-
-    # while stack:
-    #     cur_node = stack.pop()
-    #     visited[cur_node] = 1
-    #     ans_dfs.append(cur_node)
-
-    #     for node in graph[cur_node]:
-    #         if not visited[node]:
-    #             stack.append(node)
-    #             break
+    for node in graph[start_node]:
+        if not visited[node]:
+            dfs(node)
+                
                 
 n, m, s = map(int, input().split(" "))
 l = [list(map(int, input().split(" "))) for _ in range(m)]
