@@ -43,5 +43,5 @@ dfs(s)
 for i in range(len(visited)):
     visited[i] = 0
 bfs(s)
-print(ans_dfs)
-print(ans_bfs)
+print(*ans_dfs)
+print(*ans_bfs)
