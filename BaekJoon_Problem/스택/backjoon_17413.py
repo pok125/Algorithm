@@ -1,31 +1,39 @@
 # 단어 뒤집기 2
+
+# <ab cd>fe hg<ij kl>
 import sys
-input = sys.stdin.readline
-
-string = input().rstrip()
-word_stack = []
-tag = False
-res = ''
-
-for s in string:
-    if s == " ":
-        while word_stack:
-            res += word_stack.pop()
-        res += s
-    elif s == "<":
-        while word_stack:
-            res += word_stack.pop()
-        tag = True
-        res += s
-    elif s == ">":
-        tag = False
-        res += s
-    elif tag:
-        res += s
+string = sys.stdin.readline()
+flag = False
+stack = []
+answer = []
+temp_list = []
+word = ""
+string = string.rstrip()
+string += " "
+for char in string:
+    if flag == False and char == " ":
+        temp = str.join("", temp_list)
+        temp_list.clear()
+        while stack:
+            temp += stack.pop()
+        answer.append(temp)
+    elif char == "<":
+        word += char
+        flag = True
+    elif char == ">":
+        word += char
+        flag = False
+        if stack:
+            temp = ""
+            while stack:
+                temp += stack.pop()
+            word = temp + word
+        temp_list.append(word)    
+        word = ""
     else:
-        word_stack.append(s)
+        if flag:
+            word += char
+        else:
+            stack.append(char)
 
-while word_stack:
-    res += word_stack.pop()
-print(res)
-
+print(str.join(" ", answer))       
