@@ -1,25 +1,19 @@
-import heapq
-import sys
+import sys, heapq
 
-input_strings = input().split(' ')
-n = int(input_strings[0])
-k = int(input_strings[1])
+N, K = map(int, sys.stdin.readline().split(" "))
+jewels = [list(map(int, sys.stdin.readline().split(" ")))for _ in range(N)]
+bags = [int(sys.stdin.readline()) for _ in range(K)]
 
-l = [sys.stdin.readline() for _ in range(n)]
-jewel_heap = [list(map(int, i.split(' '))) for i in l]
-heapq.heapify(jewel_heap)
-bag_weights = [int(sys.stdin.readline()) for _ in range(k)]
-bag_weights.sort()
+heapq.heapify(jewels)
+bags.sort()
 
-result = []
+selects = []
 answer = 0
-for i in bag_weights:
-    while jewel_heap and i >= jewel_heap[0][0]:
-        weight, price = heapq.heappop(jewel_heap)
-        heapq.heappush(result, -price)
-    if result:
-        answer -= heapq.heappop(result)
-    elif not(jewel_heap):
-        break
+for bag in bags:
+    while jewels and bag >= jewels[0][0]:
+        w, p = heapq.heappop(jewels)
+        heapq.heappush(selects, -p)
 
+    if selects:
+        answer -= heapq.heappop(selects)
 print(answer)
