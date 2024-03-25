@@ -24,3 +24,30 @@ for i in l:
     result_list.append(s)
 
 print(sum(map(int, result_list)))
+
+# 다른 코드
+import sys
+
+N = int(sys.stdin.readline())
+alphabet_value = {}
+words = [sys.stdin.readline().rstrip() for _ in range(N)]
+
+for word in words:
+    length = len(word)
+    for i, char in enumerate(word, 1):
+        alphabet_value[char] = alphabet_value.get(char, 0) + (10 ** (length - i))
+
+count = 9
+for key, value in sorted(alphabet_value.items(), key = lambda x:x[1], reverse=True):
+    alphabet_value[key] = count
+    count -= 1
+
+total_hap = 0
+for word in words:
+    length = len(word)
+    num = 0
+    for i, char in enumerate(word, start=1):
+        num += alphabet_value[char] * (10 ** (length -i))
+    total_hap += num
+
+print(total_hap)
