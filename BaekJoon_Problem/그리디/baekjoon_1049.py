@@ -25,3 +25,32 @@ while buy_count > 0:
     buy_count -= selected_count
   
 print(result)
+
+# 다른 코드
+
+import sys
+N, M = map(int, sys.stdin.readline().split(" "))
+prices = [list(map(int, sys.stdin.readline().split(" "))) for _ in range(M)]
+
+prices.sort(key=lambda x:x[0])
+group_price = prices[0][0]
+prices.sort(key=lambda x:x[1])
+each_price = prices[0][1]
+
+answer = 0
+if group_price >= (each_price * 6):
+    answer = each_price * N
+else:
+    while N > 0:
+        if N >= 6:
+            N -= 6
+            answer += group_price
+        else:
+            if group_price < each_price * N:
+                answer += group_price
+                N -= 6
+            else:
+                answer += each_price * N
+                N = 0
+
+print(answer)
