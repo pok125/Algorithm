@@ -28,3 +28,25 @@ for _ in range(test_case):
 
 for i in result:
     print(i)
+
+# 다른 풀이
+    
+import sys
+test_case = int(sys.stdin.readline())
+answer = []
+for _ in range(test_case):
+    N = int(sys.stdin.readline())
+    datas = [list(map(int, sys.stdin.readline().split(" "))) for _ in range(N)]
+    datas.sort(key=lambda x:(x[1], x[0]))
+    temp = datas[0][0]
+    count = 0
+    for f, s in datas:    
+        if f <= temp:
+            temp = f
+            count += 1
+        if f == 1:
+            break
+    answer.append(count)
+
+for i in answer:
+    print(i)
