@@ -13,3 +13,18 @@ for i in l:
         count += 1
 
 print(count)
+
+# 다른 풀이
+import sys
+N, tape = map(int, sys.stdin.readline().split(" "))
+l = list(map(int, sys.stdin.readline().split(" ")))
+
+l.sort()
+count = 1
+start = l[0]
+
+for i in range(1, N):
+    if tape <= l[i] - start:
+        count += 1
+        start = l[i]
+print(count)
